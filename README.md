@@ -91,7 +91,7 @@ Clone the repository
 
 Bash
 
-git clone https://github.com/yourusername/tribe.git
+git clone https://github.com/Rishabhkothiyal1/tribe.git
 cd tribe
 Environment Configuration Create a .env file in the server directory (or use the provided example):
 
