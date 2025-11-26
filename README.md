@@ -64,7 +64,7 @@ User A decides to start a call and clicks the "Video Camera" icon in the UI.
 
 The Client sends a REST API request to the Meet Service container (e.g., POST /create-room).
 
-The Meet Service generates a unique UUID (e.g., meet-8x92-zk41) and returns a joinable URL: https://tribe.app/meet/meet-8x92-zk41.
+The Meet Service generates a unique UUID (e.g., meet-8x92-zk41) and returns a joinable URL: https://localhost:3000/chats/
 
 Step 2: The Invitation (Signaling via Chat)
 
