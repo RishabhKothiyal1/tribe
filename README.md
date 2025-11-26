@@ -25,35 +25,29 @@ tribe-chat/
 └── README.md
 
 <img width="3999" height="3199" alt="image" src="https://github.com/user-attachments/assets/ab009df7-267e-44b0-b20f-b4c8d0f8be65" />
+
 Here is a comprehensive technical description of Tribe, refined to highlight the containerized architecture and the specific link-based video workflow.
 
+1. Architectural Overview Tribe abandons the monolithic approach in favor of decoupled services. This ensures that a failure or high load in one component (e.g., video processing) does not degrade the performance of another (e.g., text messaging).
 
-1. Architectural Overview
-Tribe abandons the monolithic approach in favor of decoupled services. This ensures that a failure or high load in one component (e.g., video processing) does not degrade the performance of another (e.g., text messaging).
+  Containerization (Docker): Every service runs in its own container, guaranteeing that the application works identically across development (local) and production (cloud) environments.
 
-Containerization (Docker): Every service runs in its own container, guaranteeing that the application works identically across development (local) and production (cloud) environments.
-
-Orchestration: Services communicate via an internal Docker network, while an API Gateway (like Nginx) manages external traffic routing.
+  Orchestration: Services communicate via an internal Docker network, while an API Gateway (like Nginx) manages external traffic routing.
 
 2. Core Microservices
 A. The Chat Service (The Nervous System)
-Role: Handles persistent connections, real-time event broadcasting, and message storage.
+   Role: Handles persistent connections, real-time event broadcasting, and message storage.
+   Technology: Node.js with WebSockets (e.g., Socket.io). 
+   Function: Maintains an open bi-directional pipe between the server and the user. It is responsible for delivering text, images, and—crucially—Meeting Invites.
 
-Technology: Node.js with WebSockets (e.g., Socket.io).
-
-Function: Maintains an open bi-directional pipe between the server and the user. It is responsible for delivering text, images, and—crucially—Meeting Invites.
-
-B. The Meet Service (The Video Engine)
-Role: A dedicated, stateless service focused solely on real-time media.
-
-Technology: WebRTC (Web Real-Time Communication) and a Signaling Server.
-
-Function: It does not store user data. Its only job is to generate unique "Rooms" and facilitate the peer-to-peer (P2P) video streams between users who join those rooms.
+B. The Meet Service (The Video Engine) 
+    Role: A dedicated, stateless service focused solely on real-time media.
+    Technology: WebRTC (Web Real-Time Communication) and a Signaling Server.
+    Function: It does not store user data. Its only job is to generate unique "Rooms" and facilitate the peer-to-peer (P2P) video streams between users who join those rooms.
 
 C. Persistence & Caching
-Redis: Used as a message broker and presence cache (handling "Who is Online" status).
-
-Database (MongoDB/Postgres): Stores user profiles, chat history, and team structures.
+    Redis: Used as a message broker and presence cache (handling "Who is Online" status).
+    Database (MongoDB/Postgres): Stores user profiles, chat history, and team structures.
 
 3. The "Link-Based" Meeting Workflow
 This is the specific logic that powers the video integration, decoupling the invitation from the session.
